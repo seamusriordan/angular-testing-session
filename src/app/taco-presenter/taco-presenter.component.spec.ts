@@ -63,17 +63,14 @@ describe('TacoPresenterComponent', () => {
 
     const tacoElements: DebugElement [] = fixture.debugElement.queryAll(By.css('.taco-area_taco'));
 
-    expect(tacoElements[0].nativeElement.innerText).toEqual(`${expectedFirstType} taco`);
+    expect(tacoElements[0].nativeElement.innerText).toContain(`${expectedFirstType} taco`);
   });
 
 
   it('shows message after four seconds', async () => {
-
-
     await new Promise(resolve => setTimeout(resolve, 4200));
 
     fixture.detectChanges();
-
 
     const lateMessageElement: DebugElement = fixture.debugElement.query(By.css('[data-testid=late-message]'));
     expect(lateMessageElement.nativeElement.innerText).toEqual('Thanks for waiting!');

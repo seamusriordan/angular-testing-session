@@ -20,9 +20,6 @@ export class TacoService {
   }
 
   getTacos(): Observable<Taco[]> {
-
-
-
     const result: Observable<any> = this.httpClient.get(this.tacoUrl);
     return result.pipe(
       map(response =>
