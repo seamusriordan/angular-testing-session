@@ -14,13 +14,16 @@ export class TacoServiceService {
 
   private tacoUrl = 'https://angular-testing-lesson.azurewebsites.net/api/tacodata';
 
+  private static createTacoOfType(type: string): Taco {
+    return {type};
+  }
+
   getTacos(): Observable<Taco[]> {
     const result: Observable<any> = this.httpClient.get(this.tacoUrl);
     return result.pipe(
       map(response =>
-        response.types.map(type => {
-          return {type};
-        }))
+        response.types.map(TacoServiceService.createTacoOfType)
+      )
     );
   }
 }

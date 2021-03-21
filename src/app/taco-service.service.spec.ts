@@ -35,18 +35,6 @@ describe('TacoServiceService', () => {
     request.flush({types: mockTacoTypes});
   });
 
-  it('gets right number of tacos with two tacos', () => {
-    const mockTacoTypes = ['Lovely', 'Fortuitous'];
-
-    tacoService.getTacos().subscribe(
-      tacos => {
-        expect(tacos.length).toEqual(mockTacoTypes.length);
-      }
-    );
-
-    const request = httpTestingController.expectOne(url);
-    request.flush({types: mockTacoTypes});
-  });
 
   it('gets correct taco', () => {
     const mockTacoTypes = ['Fancy'];
@@ -61,5 +49,23 @@ describe('TacoServiceService', () => {
     request.flush({types: mockTacoTypes});
 
     expect(foundTacos[0].type).toEqual('Fancy');
+  });
+
+  it('gets right number of tacos with two tacos', async () => {
+    const mockTacoTypes = ['Lovely', 'Fortuitous'];
+    let foundLength = 0;
+
+    tacoService.getTacos().subscribe(
+      tacos => {
+        foundLength = tacos.length;
+      }
+    );
+
+    const request = httpTestingController.expectOne(url);
+    request.flush({types: mockTacoTypes});
+
+    await setInterval(() => {}, 500);
+
+    expect(foundLength).toEqual(mockTacoTypes.length);
   });
 });
