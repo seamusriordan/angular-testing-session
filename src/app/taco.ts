@@ -1,3 +1,3 @@
-export class Taco {
+export interface Taco {
   type: string;
 }

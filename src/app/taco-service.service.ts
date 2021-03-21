@@ -11,8 +11,8 @@ export class TacoServiceService {
   }
 
   getTacos(): Observable<Taco[]> {
-    const taco: Taco = new Taco();
-    taco.type = 'Fancy';
-    return of([taco]);
+    return of([{
+      type: 'Fancy'
+    }]);
   }
 }
