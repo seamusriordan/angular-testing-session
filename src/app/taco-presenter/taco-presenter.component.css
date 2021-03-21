@@ -1,0 +1,15 @@
+.taco-area {
+  font-family: sans-serif;
+}
+
+.taco-area_taco {
+  list-style: none;
+}
+
+.taco-area_taco:before {
+  content: '🌮';
+}
+
+.taco-area_late-message {
+  color: red;
+}
