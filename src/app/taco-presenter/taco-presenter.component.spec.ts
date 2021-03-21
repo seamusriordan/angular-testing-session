@@ -4,7 +4,7 @@ import {TacoPresenterComponent} from './taco-presenter.component';
 import {TacoService} from '../taco-service/taco.service';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-import {EMPTY, of} from 'rxjs';
+import {EMPTY, of, throwError} from 'rxjs';
 import {tacoTestData} from './taco-test-data';
 
 describe('TacoPresenterComponent', () => {
@@ -39,9 +39,9 @@ describe('TacoPresenterComponent', () => {
   });
 
   it('should say waiting when waiting for tacos', () => {
-    const tacoArea: DebugElement = fixture.debugElement.query(By.css('[data-testid=no-taco]'));
+    const waitingElement: DebugElement = fixture.debugElement.query(By.css('[data-testid=no-taco]'));
 
-    expect(tacoArea.nativeElement.innerText).toEqual('Waiting for tacos');
+    expect(waitingElement.nativeElement.innerText).toEqual('Waiting for tacos');
   });
 
   it('should have list tacos with length of tacos from service', () => {
@@ -64,5 +64,36 @@ describe('TacoPresenterComponent', () => {
     const tacoElements: DebugElement [] = fixture.debugElement.queryAll(By.css('.taco-area_taco'));
 
     expect(tacoElements[0].nativeElement.innerText).toEqual(`${expectedFirstType} taco`);
+  });
+
+
+  it('failed call shows error', () => {
+    tacoServiceSpy.getTacos.and.returnValue(throwError(new Error('No tacos')));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const errorElement: DebugElement = fixture.debugElement.query(By.css('[data-testid=taco-error]'));
+
+    expect(errorElement.nativeElement.innerText).toEqual('Failed to get data - No tacos today');
+  });
+
+  it('successful call does not show waiting', () => {
+    tacoServiceSpy.getTacos.and.returnValue(of(tacoTestData));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const errorElements: DebugElement[] = fixture.debugElement.queryAll(By.css('[data-testid=no-taco]'));
+
+    expect(errorElements.length).toEqual(0);
+  });
+
+  it('failed call does not show waiting', () => {
+    tacoServiceSpy.getTacos.and.returnValue(throwError(new Error('No tacos')));
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const errorElements: DebugElement[] = fixture.debugElement.queryAll(By.css('[data-testid=no-taco]'));
+
+    expect(errorElements.length).toEqual(0);
   });
 });

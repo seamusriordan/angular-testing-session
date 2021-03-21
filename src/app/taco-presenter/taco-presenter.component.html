@@ -1,7 +1,13 @@
-<div *ngIf="!tacos"
+<div *ngIf="isWaitingForTacos()"
      data-testid="no-taco"
      class="taco-area taco-area_no-taco">
   Waiting for tacos
+</div>
+
+<div *ngIf="tacoError"
+     data-testid="taco-error"
+     class="taco-area">
+  Failed to get data - No tacos today
 </div>
 
 <ul class="tacoArea">

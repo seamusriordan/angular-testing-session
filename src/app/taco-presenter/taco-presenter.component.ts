@@ -10,13 +10,26 @@ import {Taco} from '../taco';
 export class TacoPresenterComponent implements OnInit {
   tacos: Taco [];
 
+  waitingForTacos = true;
+  tacoError = false;
+
   constructor(private tacoService: TacoService) {
   }
 
   ngOnInit(): void {
     this.tacoService.getTacos().subscribe(tacos => {
-      this.tacos = tacos;
-    });
+        this.tacos = tacos;
+        this.waitingForTacos = false;
+      },
+      () => {
+        this.tacoError = true;
+        this.waitingForTacos = false;
+      }
+    );
+  }
+
+  public isWaitingForTacos(): boolean {
+    return this.waitingForTacos && !this.tacoError;
   }
 
 }
