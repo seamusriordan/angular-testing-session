@@ -1,6 +1,6 @@
 # AngularTestingSession
 
-Oh no!  Your tech lead has wandered out of a meeting and attempted to write code!  It's a mess and the big demo is tomorrow!  Can you fix this PR and save your team?
+Oh no!  Your tech lead has wandered out of a meeting and attempted to write code!  It's a mess and the big demo to FoodCorp is tomorrow!  Can you fix this PR and save your sprint?
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.5.
 
