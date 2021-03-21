@@ -1,18 +1,26 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Taco} from './taco';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TacoServiceService {
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
+  private tacoUrl = 'https://angular-testing-lesson.azurewebsites.net/api/tacodata';
+
   getTacos(): Observable<Taco[]> {
-    return of([{
-      type: 'Fancy'
-    }]);
+    const result: Observable<any> = this.httpClient.get(this.tacoUrl);
+    return result.pipe(
+      map(response =>
+        response.types.map(type => {
+          return {type};
+        }))
+    );
   }
 }
