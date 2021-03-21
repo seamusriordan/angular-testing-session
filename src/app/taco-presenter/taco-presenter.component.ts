@@ -31,7 +31,7 @@ export class TacoPresenterComponent implements OnInit {
 
     setTimeout(() => {
       this.showLateMessage = true;
-    }, 1000);
+    }, 4000);
   }
 
   public isWaitingForTacos(): boolean {

@@ -67,10 +67,10 @@ describe('TacoPresenterComponent', () => {
   });
 
 
-  it('shows message after two seconds', async () => {
+  it('shows message after four seconds', async () => {
 
 
-    await new Promise(resolve => setTimeout(resolve, 1200));
+    await new Promise(resolve => setTimeout(resolve, 4200));
 
     fixture.detectChanges();
 
