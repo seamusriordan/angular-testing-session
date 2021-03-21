@@ -7,9 +7,10 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class TacoServiceService {
+export class TacoService {
 
   constructor(private httpClient: HttpClient) {
+    this.httpClient.get('http://unhandledcall').subscribe();
   }
 
   private tacoUrl = 'https://angular-testing-lesson.azurewebsites.net/api/tacodata';
@@ -19,10 +20,13 @@ export class TacoServiceService {
   }
 
   getTacos(): Observable<Taco[]> {
+
+
+
     const result: Observable<any> = this.httpClient.get(this.tacoUrl);
     return result.pipe(
       map(response =>
-        response.types.map(TacoServiceService.createTacoOfType)
+        response.types.map(TacoService.createTacoOfType)
       )
     );
   }

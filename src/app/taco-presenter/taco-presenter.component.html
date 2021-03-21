@@ -1,1 +1,12 @@
-<p>taco-presenter works!</p>
+<div *ngIf="!tacos"
+     data-testid="no-taco"
+     class="taco-area taco-area_no-taco">
+  Waiting for tacos
+</div>
+
+<ul class="tacoArea">
+  <li *ngFor="let taco of tacos"
+      class="taco-area taco-area_taco">
+    {{taco.type}} taco
+  </li>
+</ul>

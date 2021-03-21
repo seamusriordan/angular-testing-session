@@ -1,11 +1,11 @@
 import {TestBed} from '@angular/core/testing';
 
-import {TacoServiceService} from './taco-service.service';
+import {TacoService} from './taco.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Taco} from '../taco';
 
-describe('TacoServiceService', () => {
-  let tacoService: TacoServiceService;
+describe('TacoService', () => {
+  let tacoService: TacoService;
   let httpTestingController: HttpTestingController;
   const url = 'https://angular-testing-lesson.azurewebsites.net/api/tacodata';
 
@@ -14,7 +14,7 @@ describe('TacoServiceService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule]
     });
-    tacoService = TestBed.inject(TacoServiceService);
+    tacoService = TestBed.inject(TacoService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 

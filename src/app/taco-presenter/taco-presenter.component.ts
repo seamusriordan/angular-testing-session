@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TacoService} from '../taco-service/taco.service';
+import {Taco} from '../taco';
 
 @Component({
   selector: 'app-taco-presenter',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./taco-presenter.component.css']
 })
 export class TacoPresenterComponent implements OnInit {
+  tacos: Taco [];
 
-  constructor() { }
+  constructor(private tacoService: TacoService) {
+  }
 
   ngOnInit(): void {
+    this.tacoService.getTacos().subscribe(tacos => {
+      this.tacos = tacos;
+    });
   }
 
 }
