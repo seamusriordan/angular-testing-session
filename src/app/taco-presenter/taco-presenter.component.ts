@@ -13,6 +13,8 @@ export class TacoPresenterComponent implements OnInit {
   waitingForTacos = true;
   tacoError = false;
 
+  showLateMessage = false;
+
   constructor(private tacoService: TacoService) {
   }
 
@@ -26,6 +28,10 @@ export class TacoPresenterComponent implements OnInit {
         this.waitingForTacos = false;
       }
     );
+
+    setTimeout(() => {
+      this.showLateMessage = true;
+    }, 1000);
   }
 
   public isWaitingForTacos(): boolean {

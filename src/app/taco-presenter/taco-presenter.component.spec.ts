@@ -67,6 +67,18 @@ describe('TacoPresenterComponent', () => {
   });
 
 
+  it('shows message after two seconds', async () => {
+
+
+    await new Promise(resolve => setTimeout(resolve, 1200));
+
+    fixture.detectChanges();
+
+
+    const lateMessageElement: DebugElement = fixture.debugElement.query(By.css('[data-testid=late-message]'));
+    expect(lateMessageElement.nativeElement.innerText).toEqual('Thanks for waiting!');
+  });
+
   it('failed call shows error', () => {
     tacoServiceSpy.getTacos.and.returnValue(throwError(new Error('No tacos')));
     component.ngOnInit();
