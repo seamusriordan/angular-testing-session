@@ -63,8 +63,8 @@ describe('TacoService', () => {
     const request = httpTestingController.expectOne(url);
     request.flush({types: mockTacoTypes});
 
-    await setInterval(() => {
-    }, 500);
+    await new Promise(resolve => setTimeout(resolve, 200));
+
 
     expect(foundLength).toEqual(mockTacoTypes.length);
   });
