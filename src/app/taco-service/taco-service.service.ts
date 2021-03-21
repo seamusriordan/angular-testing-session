@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Taco} from './taco';
+import {Taco} from '../taco';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
