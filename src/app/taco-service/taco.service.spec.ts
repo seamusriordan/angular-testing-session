@@ -2,7 +2,6 @@ import {TestBed} from '@angular/core/testing';
 
 import {TacoService} from './taco.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {Taco} from '../taco';
 
 describe('TacoService', () => {
   let tacoService: TacoService;
@@ -18,31 +17,34 @@ describe('TacoService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+
   it('should be created', () => {
     expect(tacoService).toBeTruthy();
   });
 
-  it('gets correct taco', () => {
+  it('gets correct taco', (done) => {
     const mockTacoTypes = ['Fancy'];
-    let foundTacos: Taco [] = [];
 
     tacoService.getTacos().subscribe(
       tacos => {
-        foundTacos = tacos;
+        expect(tacos[0].type).toEqual('Fancy');
+        done();
       }
     );
     const request = httpTestingController.expectOne(url);
     request.flush({types: mockTacoTypes});
-
-    expect(foundTacos[0].type).toEqual('Fancy');
   });
 
-  it('gets right number of tacos with one taco', () => {
+  it('gets right number of tacos with one taco', (done) => {
     const mockTacoTypes = ['Boring'];
 
     tacoService.getTacos().subscribe(
       tacos => {
         expect(tacos.length).toEqual(mockTacoTypes.length);
+        done();
       }
     );
 
@@ -50,22 +52,19 @@ describe('TacoService', () => {
     request.flush({types: mockTacoTypes});
   });
 
-  it('gets right number of tacos with two tacos', async () => {
+  it('gets right number of tacos with two tacos', (done) => {
     const mockTacoTypes = ['Lovely', 'Fortuitous'];
     let foundLength = 0;
 
     tacoService.getTacos().subscribe(
       tacos => {
         foundLength = tacos.length;
+        expect(foundLength).toEqual(mockTacoTypes.length);
+        done();
       }
     );
 
     const request = httpTestingController.expectOne(url);
     request.flush({types: mockTacoTypes});
-
-    await new Promise(resolve => setTimeout(resolve, 200));
-
-
-    expect(foundLength).toEqual(mockTacoTypes.length);
   });
 });

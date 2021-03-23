@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick} from '@angular/core/testing';
 
 import {TacoPresenterComponent} from './taco-presenter.component';
 import {TacoService} from '../taco-service/taco.service';
@@ -55,26 +55,30 @@ describe('TacoPresenterComponent', () => {
   });
 
   it('should list tacos when different tacos are given by service', () => {
-    const expectedFirstType = 'Glorious';
-    tacoTestData[0].type = expectedFirstType;
-    tacoServiceSpy.getTacos.and.returnValue(of(tacoTestData));
+    const testData = [{...tacoTestData[0], type: 'Glorious'}];
+    tacoServiceSpy.getTacos.and.returnValue(of(testData));
     component.ngOnInit();
     fixture.detectChanges();
 
     const tacoElements: DebugElement [] = fixture.debugElement.queryAll(By.css('.taco-area_taco'));
 
-    expect(tacoElements[0].nativeElement.innerText).toContain(`${expectedFirstType} taco`);
+    expect(tacoElements[0].nativeElement.innerText).toContain(`Glorious taco`);
   });
 
 
-  it('shows message after four seconds', async () => {
-    await new Promise(resolve => setTimeout(resolve, 4200));
+  it('shows message after four seconds', fakeAsync( () => {
+    // await new Promise(resolve => setTimeout(resolve, 4200));
+
+    component.ngOnInit();
+
+    tick(4000);
 
     fixture.detectChanges();
 
+
     const lateMessageElement: DebugElement = fixture.debugElement.query(By.css('[data-testid=late-message]'));
     expect(lateMessageElement.nativeElement.innerText).toEqual('Thanks for waiting!');
-  });
+  }));
 
   it('failed call shows error', () => {
     tacoServiceSpy.getTacos.and.returnValue(throwError(new Error('No tacos')));

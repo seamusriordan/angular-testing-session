@@ -1,4 +1,4 @@
-<div *ngIf="isWaitingForTacos()"
+<div *ngIf="!this.tacos && !this.tacoError"
      data-testid="no-taco"
      class="taco-area taco-area_no-taco">
   Waiting for tacos

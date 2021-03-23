@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {EMPTY, Observable} from 'rxjs';
 import {Taco} from '../taco';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
@@ -10,7 +10,6 @@ import {map} from 'rxjs/operators';
 export class TacoService {
 
   constructor(private httpClient: HttpClient) {
-    this.httpClient.get('http://unhandledcall').subscribe();
   }
 
   private tacoUrl = 'https://angular-testing-lesson.azurewebsites.net/api/tacodata';
@@ -20,6 +19,7 @@ export class TacoService {
   }
 
   getTacos(): Observable<Taco[]> {
+
     const result: Observable<any> = this.httpClient.get(this.tacoUrl);
     return result.pipe(
       map(response =>

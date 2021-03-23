@@ -1,8 +1,8 @@
 import {Taco} from '../taco';
 
 export const tacoTestData: Taco [] = [
-  {type: 'Wondrous'},
-  {type: 'Fancy'},
-  {type: 'Gritty'},
-  {type: 'Fungible'}
+  Object.freeze({type: 'Wondrous'}),
+  Object.freeze({type: 'Fancy'}),
+  Object.freeze({type: 'Gritty'}),
+  Object.freeze({type: 'Fungible'})
 ];
